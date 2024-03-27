@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Receive the inputs from the player and cast the corresponding events
+/// </summary>
 public class InputsReceiver : MonoBehaviour
 {
     public event Action<Vector2> OnMove;
@@ -22,7 +25,6 @@ public class InputsReceiver : MonoBehaviour
             return;
         }
 
-        Debug.Log("Interact");
         OnInteract?.Invoke();
     }
 

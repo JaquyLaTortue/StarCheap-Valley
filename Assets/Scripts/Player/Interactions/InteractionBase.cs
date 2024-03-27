@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Abstract class for the interactions
+/// </summary>
 public abstract class InteractionBase : MonoBehaviour
 {
-    public GameObject ContextUIParent { get; private set; }
+    [field: SerializeField]
+    public GameObject ContextUIParent { get; protected set; }
 
     /// <summary>
     /// Display the UI of the interaction
     /// </summary>
-    public void DisplayUI()
+    public void DisplayUI(bool state)
     {
-        ContextUIParent.SetActive(true);
+        ContextUIParent.SetActive(state);
     }
 
     /// <summary>

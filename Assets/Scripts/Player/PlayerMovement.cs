@@ -1,8 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// Manage the player's movement
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField]
     private float _speed = 5f;
 
@@ -16,9 +20,9 @@ public class PlayerMovement : MonoBehaviour
     [field: SerializeField]
     public PlayerMain PlayerMain { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
+        _rb = GetComponentInChildren<Rigidbody>();
         _rb.velocity = Vector3.zero;
 
         PlayerMain.InputsReceiver.OnMove += Movement;
