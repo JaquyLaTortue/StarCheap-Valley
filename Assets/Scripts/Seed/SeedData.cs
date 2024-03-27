@@ -14,8 +14,8 @@ public class SeedData : ScriptableObject
     public Vector2 TimeToGrowRange { get; private set; }
 
     [field: SerializeField]
-    public Vector2 CostRange { get; private set; }
+    public int Cost { get; private set; }
 
     [field: SerializeField]
-    public Vector2 PriceRange { get; private set; }
+    public int Price { get; private set; }
 }

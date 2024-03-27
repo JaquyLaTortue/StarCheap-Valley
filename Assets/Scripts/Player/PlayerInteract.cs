@@ -11,7 +11,7 @@ public class PlayerInteract : MonoBehaviour
     private Selling _selling;
 
     [SerializeField]
-    private Planting _planting;
+    private PlantingAndHarvest _planting;
 
     [Header("Scripts Collected")]
 

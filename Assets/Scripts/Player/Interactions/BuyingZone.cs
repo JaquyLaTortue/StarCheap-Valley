@@ -22,11 +22,11 @@ public class BuyingZone : InteractionBase
     /// </summary>
     public override void Interact(/*Seed currentseed*/)
     {
-        if (PlayerMoney.Instance.Money >= _seedForSale.Price)
+        if (PlayerMoney.Instance.Money >= _seedForSale.SeedData.Price)
         {
-            GameObject newSeed = Instantiate(SeedPrefab);
+            GameObject newSeed = Instantiate(SeedPrefab, PlayerInventory.Instance.transform);
 
-            PlayerMoney.Instance.SpendMoney(_seedForSale.Price);
+            PlayerMoney.Instance.SpendMoney(_seedForSale.SeedData.Price);
             PlayerInventory.Instance.AddSeed(newSeed.GetComponent<Seed>());
         }
         else

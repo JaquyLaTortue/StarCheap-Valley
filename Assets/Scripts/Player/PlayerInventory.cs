@@ -17,6 +17,9 @@ public class PlayerInventory : MonoBehaviour
     [field: SerializeField]
     public List<Seed> Seeds { get; private set; }
 
+    [field: SerializeField]
+    public List<Seed> GrownSeed { get; private set; }
+
     /// <summary>
     /// Add the specified seed to the player's inventory
     /// </summary>
@@ -39,6 +42,16 @@ public class PlayerInventory : MonoBehaviour
             CurrentSeed = null;
             OnInventoryModified?.Invoke();
         }
+    }
+
+    public void AddGrownSeed(Seed seedToAdd)
+    {
+        GrownSeed.Add(seedToAdd);
+    }
+
+    public void RemoveGrownSeed(Seed seedToRemove)
+    {
+        GrownSeed.Remove(seedToRemove);
     }
 
     private void Awake()

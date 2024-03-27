@@ -29,6 +29,7 @@ public class CropPlot : MonoBehaviour
     {
         if (!SomethingPlanted)
         {
+            seed.transform.parent = transform;
             Seed current = seed.GetComponent<Seed>();
 
             _seedPlanted = seed;
@@ -40,6 +41,20 @@ public class CropPlot : MonoBehaviour
         }
     }
 
+    public void Harvest()
+    {
+        if (SomethingPlanted && _seedPlanted.GetComponent<Seed>()._growingStage == EGrowingStage.Plant)
+        {
+            Debug.Log("Harvesting");
+            _seedPlanted.transform.parent = PlayerInventory.Instance.transform;
+            ResetCropPlot();
+        }
+        else
+        {
+            Debug.Log("Not Ready to Harvest");
+        }
+    }
+
     /// <summary>
     /// Reset the crop plot to its initial state when no Crop plot is near
     /// </summary>
@@ -47,6 +62,7 @@ public class CropPlot : MonoBehaviour
     {
         SomethingPlanted = false;
         _seedPlanted = null;
+        _visibleSeed.SetActive(false);
     }
 
     /// <summary>
@@ -67,6 +83,9 @@ public class CropPlot : MonoBehaviour
     {
         switch (stage)
         {
+            case EGrowingStage.Seed:
+                _visibleSeed.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                break;
             case EGrowingStage.Shoot:
                 _visibleSeed.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 break;

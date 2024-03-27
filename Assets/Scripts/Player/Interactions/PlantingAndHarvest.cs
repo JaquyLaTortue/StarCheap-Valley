@@ -3,7 +3,7 @@
 /// <summary>
 /// The interaction of planting seeds in the crop plots
 /// </summary>
-public class Planting : InteractionBase
+public class PlantingAndHarvest : InteractionBase
 {
     [SerializeField]
     private CropPlot _currentCropPlot;
@@ -13,7 +13,6 @@ public class Planting : InteractionBase
     /// </summary>
     public override void Interact(/*Seed currentseed*/)
     {
-        Debug.Log("Planting");
         if (_currentCropPlot == null)
         {
             Debug.LogError("No crop plot selected (ShouldNotPass Here");
@@ -22,7 +21,7 @@ public class Planting : InteractionBase
 
         if (_currentCropPlot.SomethingPlanted)
         {
-            Debug.Log("Something is already planted here");
+            _currentCropPlot.Harvest();
             return;
         }
 
@@ -31,6 +30,7 @@ public class Planting : InteractionBase
             Debug.Log("No Seed Selected");
             return;
         }
+
         Seed currentSeed = PlayerInventory.Instance.CurrentSeed;
         _currentCropPlot.PlantSeed(currentSeed.gameObject);
         PlayerInventory.Instance.RemoveSeed(currentSeed);
