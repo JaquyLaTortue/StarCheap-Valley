@@ -11,6 +11,8 @@ public class InputsReceiver : MonoBehaviour
 
     public event Action OnInteract;
 
+    public event Action<float> OnSwitchSeed;
+
     [field: SerializeField]
     public PlayerMain PlayerMain { get; private set; }
 
@@ -36,5 +38,20 @@ public class InputsReceiver : MonoBehaviour
     {
         Vector2 direction = ctx.ReadValue<Vector2>();
         OnMove?.Invoke(direction);
+    }
+
+    /// <summary>
+    /// Cast the SwitchSeed event when the switch seed input is received
+    /// </summary>
+    /// <param name="ctx"></param>
+    public void CastSwitchSeed(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.started)
+        {
+            return;
+        }
+
+        float value = ctx.ReadValue<float>();
+        OnSwitchSeed?.Invoke(value);
     }
 }

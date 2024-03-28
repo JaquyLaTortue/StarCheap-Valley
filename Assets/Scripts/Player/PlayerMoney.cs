@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using DG.Tweening;
 
 /// <summary>
 /// Manage the player's money
@@ -12,6 +13,9 @@ public class PlayerMoney : MonoBehaviour
     private TMP_Text _moneyText;
 
     private bool _notEnoughMoneyCD = true;
+
+    public event Action<int, Color> OnMoneyChange;
+
     public static PlayerMoney Instance { get; private set; }
 
     [field: SerializeField]
@@ -27,7 +31,7 @@ public class PlayerMoney : MonoBehaviour
     public void EarnMoney(int amount)
     {
         Money += amount;
-        _moneyText.text = Money.ToString();
+        OnMoneyChange?.Invoke(Money, Color.green);
     }
 
     /// <summary>
@@ -37,7 +41,7 @@ public class PlayerMoney : MonoBehaviour
     public void SpendMoney(int amount)
     {
         Money -= amount;
-        _moneyText.text = Money.ToString();
+        OnMoneyChange?.Invoke(Money, Color.red);
     }
 
     /// <summary>
@@ -75,7 +79,5 @@ public class PlayerMoney : MonoBehaviour
         {
             Destroy(this);
         }
-
-        _moneyText.text = Money.ToString();
     }
 }

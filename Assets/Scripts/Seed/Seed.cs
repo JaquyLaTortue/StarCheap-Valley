@@ -13,8 +13,8 @@ public class Seed : MonoBehaviour
 
     public event Action<EGrowingStage> OnGrowingStageChange;
 
-    [SerializeField]
-    public EGrowingStage _growingStage { get; private set; }
+    [field: SerializeField]
+    public EGrowingStage GrowingStage { get; private set; }
 
     [field: SerializeField]
     public SeedData SeedData { get; private set; }
@@ -33,21 +33,21 @@ public class Seed : MonoBehaviour
     /// <returns></returns>
     private IEnumerator GrowingProcess()
     {
-        _growingStage = EGrowingStage.Seed;
-        OnGrowingStageChange?.Invoke(_growingStage);
+        GrowingStage = EGrowingStage.Seed;
+        OnGrowingStageChange?.Invoke(GrowingStage);
         yield return new WaitForSeconds(_growTime / 2f);
-        _growingStage = EGrowingStage.Shoot;
-        OnGrowingStageChange?.Invoke(_growingStage);
+        GrowingStage = EGrowingStage.Shoot;
+        OnGrowingStageChange?.Invoke(GrowingStage);
         Debug.Log("Shoot");
         yield return new WaitForSeconds(_growTime / 2f);
-        _growingStage = EGrowingStage.Plant;
-        OnGrowingStageChange?.Invoke(_growingStage);
+        GrowingStage = EGrowingStage.Plant;
+        OnGrowingStageChange?.Invoke(GrowingStage);
         Debug.Log("Plant");
     }
 
     private void Awake()
     {
         _growTime = Random.Range(SeedData.TimeToGrowRange.x, SeedData.TimeToGrowRange.y);
-        _growingStage = EGrowingStage.Seed;
+        GrowingStage = EGrowingStage.Seed;
     }
 }

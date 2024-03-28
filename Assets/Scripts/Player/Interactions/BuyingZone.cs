@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// The zone where the player can buy seeds
@@ -14,24 +15,29 @@ public class BuyingZone : InteractionBase
     [SerializeField]
     private bool _currentBuyZone;
 
+    public event Action<string> OnUpdateUI;
+
     [field: SerializeField]
     public GameObject SeedPrefab { get; private set; }
 
     /// <summary>
     /// When the player is near the buying zone, the player can buy the seed that is filled in the inspector
     /// </summary>
-    public override void Interact(/*Seed currentseed*/)
+    public override void Interact()
     {
-        if (PlayerMoney.Instance.Money >= _seedForSale.SeedData.Price)
+        if (PlayerMoney.Instance.Money >= _seedForSale.SeedData.Cost)
         {
             GameObject newSeed = Instantiate(SeedPrefab, PlayerInventory.Instance.transform);
 
-            PlayerMoney.Instance.SpendMoney(_seedForSale.SeedData.Price);
+            PlayerMoney.Instance.SpendMoney(_seedForSale.SeedData.Cost);
             PlayerInventory.Instance.AddSeed(newSeed.GetComponent<Seed>());
+            OnUpdateUI?.Invoke($"Bought a {_seedForSale.SeedData.Type}");
         }
         else
         {
             PlayerMoney.Instance.NotEnoughMoney();
+            OnUpdateUI?.Invoke($"Not Enough Money to buy a {_seedForSale.SeedData.Type} " +
+                $"\n (missing {_seedForSale.SeedData.Price - PlayerMoney.Instance.Money})");
         }
     }
 

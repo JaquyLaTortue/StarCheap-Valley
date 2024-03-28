@@ -11,7 +11,7 @@ public class PlantingAndHarvest : InteractionBase
     /// <summary>
     /// When the player is near a crop plot, the player can plant the current seed of the inventory
     /// </summary>
-    public override void Interact(/*Seed currentseed*/)
+    public override void Interact()
     {
         if (_currentCropPlot == null)
         {
@@ -34,7 +34,6 @@ public class PlantingAndHarvest : InteractionBase
         Seed currentSeed = PlayerInventory.Instance.CurrentSeed;
         _currentCropPlot.PlantSeed(currentSeed.gameObject);
         PlayerInventory.Instance.RemoveSeed(currentSeed);
-
     }
 
     /// <summary>

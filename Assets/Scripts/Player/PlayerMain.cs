@@ -12,8 +12,5 @@ public class PlayerMain : MonoBehaviour
     public InputsReceiver InputsReceiver { get; private set; }
 
     [field: SerializeField]
-    public PlayerMoney Money { get; private set; }
-
-    [field: SerializeField]
     public PlayerInteract Interact { get; private set; }
 }

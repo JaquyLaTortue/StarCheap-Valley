@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// The zone where the player can plant seeds
@@ -17,6 +18,8 @@ public class CropPlot : MonoBehaviour
 
     [SerializeField]
     private GameObject _visibleSeed;
+
+    public event Action<string> OnUpdateUI;
 
     [field: SerializeField]
     public bool SomethingPlanted { get; private set; } = false;
@@ -43,15 +46,18 @@ public class CropPlot : MonoBehaviour
 
     public void Harvest()
     {
-        if (SomethingPlanted && _seedPlanted.GetComponent<Seed>()._growingStage == EGrowingStage.Plant)
+        if (SomethingPlanted && _seedPlanted.GetComponent<Seed>().GrowingStage == EGrowingStage.Plant)
         {
             Debug.Log("Harvesting");
+            OnUpdateUI?.Invoke($"Harvested a {_seedPlanted.GetComponent<Seed>().SeedData.Type}");
             _seedPlanted.transform.parent = PlayerInventory.Instance.transform;
+            PlayerInventory.Instance.AddGrownSeed(_seedPlanted.GetComponent<Seed>());
             ResetCropPlot();
         }
         else
         {
             Debug.Log("Not Ready to Harvest");
+            OnUpdateUI?.Invoke("Not Ready to Harvest");
         }
     }
 
@@ -63,6 +69,7 @@ public class CropPlot : MonoBehaviour
         SomethingPlanted = false;
         _seedPlanted = null;
         _visibleSeed.SetActive(false);
+        _visibleSeed.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
     }
 
     /// <summary>

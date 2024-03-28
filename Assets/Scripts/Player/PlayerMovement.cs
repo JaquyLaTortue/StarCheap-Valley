@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float _speed = 5f;
 
-    [SerializeField]
     private Vector3 _direction;
 
     private Rigidbody _rb;
@@ -40,6 +39,23 @@ public class PlayerMovement : MonoBehaviour
     private void Movement(Vector2 tempDirection)
     {
         _direction = new Vector3(tempDirection.x, 0, tempDirection.y);
+        if (_direction.x > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+        }
+        else if (_direction.x < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, -90, 0);
+        }
+        else if (_direction.z > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (_direction.z < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+
         OnMove?.Invoke(_direction != Vector3.zero);
     }
 }

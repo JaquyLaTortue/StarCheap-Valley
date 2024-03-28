@@ -69,6 +69,7 @@ public class PlayerInteract : MonoBehaviour
                 break;
             case "SellingZone":
                 _currentAction = "Sell";
+                _selling.UpdateIndications(true);
                 break;
             default:
                 break;
@@ -91,6 +92,7 @@ public class PlayerInteract : MonoBehaviour
                 _planting.ResetCropPlot();
                 break;
             case "SellingZone":
+                _selling.UpdateIndications(false);
                 break;
             default:
                 break;

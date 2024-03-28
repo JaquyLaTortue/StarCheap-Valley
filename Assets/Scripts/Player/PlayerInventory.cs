@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -7,9 +8,16 @@ using UnityEngine;
 /// </summary>
 public class PlayerInventory : MonoBehaviour
 {
-    public static PlayerInventory Instance { get; private set; }
+    [SerializeField]
+    private InputsReceiver _inputsReceiver;
 
-    public event Action OnInventoryModified;
+    [SerializeField]
+    private TMP_Text _seedText;
+
+    public event Action OnSeedInventoryModified;
+    public event Action<string> OnCurrentSeedUpdated;
+
+    public static PlayerInventory Instance { get; private set; }
 
     [field: SerializeField]
     public Seed CurrentSeed { get; private set; }
@@ -27,7 +35,7 @@ public class PlayerInventory : MonoBehaviour
     public void AddSeed(Seed seedToAdd)
     {
         Seeds.Add(seedToAdd);
-        OnInventoryModified?.Invoke();
+        OnSeedInventoryModified?.Invoke();
     }
 
     /// <summary>
@@ -40,7 +48,7 @@ public class PlayerInventory : MonoBehaviour
         if (seedToRemove == CurrentSeed)
         {
             CurrentSeed = null;
-            OnInventoryModified?.Invoke();
+            OnSeedInventoryModified?.Invoke();
         }
     }
 
@@ -52,6 +60,54 @@ public class PlayerInventory : MonoBehaviour
     public void RemoveGrownSeed(Seed seedToRemove)
     {
         GrownSeed.Remove(seedToRemove);
+        Destroy(seedToRemove.gameObject);
+    }
+
+    public Dictionary<int, Seed> GetSeedCount(Seed seed)
+    {
+        Dictionary<int, Seed> seedIndex = new();
+        int nbSeed = 0;
+        for (int i = 0; i < GrownSeed.Count; i++)
+        {
+            Seed tempSeed = GrownSeed[i];
+            if (tempSeed.SeedData.Type == seed.SeedData.Type)
+            {
+                seedIndex.Add(nbSeed, tempSeed);
+                nbSeed++;
+            }
+        }
+
+        return seedIndex;
+    }
+
+    private void SwitchCurrentSeed(float value)
+    {
+        if (Seeds.Count == 0)
+        {
+            return;
+        }
+
+        int index = Seeds.IndexOf(CurrentSeed);
+        if (value > 0)
+        {
+            index++;
+            if (index >= Seeds.Count)
+            {
+                index = 0;
+            }
+        }
+        else
+        {
+            index--;
+            if (index < 0)
+            {
+                index = Seeds.Count - 1;
+            }
+        }
+
+        CurrentSeed = Seeds[index];
+        OnSeedInventoryModified?.Invoke();
+        Debug.Log($"Current seed: {CurrentSeed.SeedData.Type}");
     }
 
     private void Awake()
@@ -65,7 +121,9 @@ public class PlayerInventory : MonoBehaviour
             Destroy(this);
         }
 
-        OnInventoryModified += UpdateCurrentSeed;
+        OnSeedInventoryModified += UpdateCurrentSeed;
+        _inputsReceiver.OnSwitchSeed += SwitchCurrentSeed;
+        UpdateCurrentSeed();
     }
 
     /// <summary>
@@ -73,9 +131,15 @@ public class PlayerInventory : MonoBehaviour
     /// </summary>
     private void UpdateCurrentSeed()
     {
-        if (Seeds.Count == 1)
+        if (Seeds.Count == 0)
+        {
+            OnCurrentSeedUpdated?.Invoke("No seed in inventory");
+            return;
+        }
+        else if (CurrentSeed == null || Seeds.Count == 1)
         {
             CurrentSeed = Seeds[0];
         }
+        OnCurrentSeedUpdated?.Invoke($"Selected Seed : {CurrentSeed.SeedData.Type}");
     }
 }
