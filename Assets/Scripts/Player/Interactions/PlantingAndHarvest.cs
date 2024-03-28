@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// The interaction of planting seeds in the crop plots
@@ -7,6 +8,8 @@ public class PlantingAndHarvest : InteractionBase
 {
     [SerializeField]
     private CropPlot _currentCropPlot;
+
+    public event Action<string> OnUpdateUI;
 
     /// <summary>
     /// When the player is near a crop plot, the player can plant the current seed of the inventory
@@ -27,7 +30,7 @@ public class PlantingAndHarvest : InteractionBase
 
         if (PlayerInventory.Instance.CurrentSeed == null)
         {
-            Debug.Log("No Seed Selected");
+            OnUpdateUI?.Invoke("No seed actually selected");
             return;
         }
 

@@ -19,6 +19,11 @@ public class CropPlot : MonoBehaviour
     [SerializeField]
     private GameObject _visibleSeed;
 
+    [SerializeField]
+    private Material _seedMaterial;
+    [SerializeField]
+    private Material _grownMaterial;
+
     public event Action<string> OnUpdateUI;
 
     [field: SerializeField]
@@ -34,6 +39,7 @@ public class CropPlot : MonoBehaviour
         {
             seed.transform.parent = transform;
             Seed current = seed.GetComponent<Seed>();
+            OnUpdateUI?.Invoke($"Planted a {current.SeedData.Type}");
 
             _seedPlanted = seed;
             SomethingPlanted = true;
@@ -48,7 +54,6 @@ public class CropPlot : MonoBehaviour
     {
         if (SomethingPlanted && _seedPlanted.GetComponent<Seed>().GrowingStage == EGrowingStage.Plant)
         {
-            Debug.Log("Harvesting");
             OnUpdateUI?.Invoke($"Harvested a {_seedPlanted.GetComponent<Seed>().SeedData.Type}");
             _seedPlanted.transform.parent = PlayerInventory.Instance.transform;
             PlayerInventory.Instance.AddGrownSeed(_seedPlanted.GetComponent<Seed>());
@@ -56,7 +61,6 @@ public class CropPlot : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not Ready to Harvest");
             OnUpdateUI?.Invoke("Not Ready to Harvest");
         }
     }
@@ -70,6 +74,7 @@ public class CropPlot : MonoBehaviour
         _seedPlanted = null;
         _visibleSeed.SetActive(false);
         _visibleSeed.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        _visibleSeed.GetComponent<MeshRenderer>().material = _seedMaterial;
     }
 
     /// <summary>
@@ -98,6 +103,7 @@ public class CropPlot : MonoBehaviour
                 break;
             case EGrowingStage.Plant:
                 _visibleSeed.transform.localScale = new Vector3(1f, 1f, 1f);
+                _visibleSeed.GetComponent<MeshRenderer>().material = _grownMaterial;
                 break;
             default:
                 break;

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Potato
   m_EditorClassIdentifier: 
   <Type>k__BackingField: Potato
-  <TimeToGrowRange>k__BackingField: {x: 8, y: 14}
+  <TimeToGrowRange>k__BackingField: {x: 10, y: 25}
   <Cost>k__BackingField: 75
   <Price>k__BackingField: 95

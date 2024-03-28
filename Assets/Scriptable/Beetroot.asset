@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Beetroot
   m_EditorClassIdentifier: 
   <Type>k__BackingField: Beetroot
-  <TimeToGrowRange>k__BackingField: {x: 12, y: 20}
-  <Cost>k__BackingField: 12
-  <Price>k__BackingField: 12
+  <TimeToGrowRange>k__BackingField: {x: 6, y: 13}
+  <Cost>k__BackingField: 11
+  <Price>k__BackingField: 15

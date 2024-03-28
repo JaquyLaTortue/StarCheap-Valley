@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -14,6 +15,9 @@ public class BuyingZone : InteractionBase
 
     [SerializeField]
     private bool _currentBuyZone;
+
+    [SerializeField]
+    private TMP_Text _indicationsText;
 
     public event Action<string> OnUpdateUI;
 
@@ -37,7 +41,7 @@ public class BuyingZone : InteractionBase
         {
             PlayerMoney.Instance.NotEnoughMoney();
             OnUpdateUI?.Invoke($"Not Enough Money to buy a {_seedForSale.SeedData.Type} " +
-                $"\n (missing {_seedForSale.SeedData.Price - PlayerMoney.Instance.Money})");
+                $"\n (missing {_seedForSale.SeedData.Cost - PlayerMoney.Instance.Money}€)");
         }
     }
 
@@ -49,5 +53,10 @@ public class BuyingZone : InteractionBase
     {
         _currentBuyZone = state;
         _indicator.SetActive(_currentBuyZone);
+    }
+
+    private void Start()
+    {
+        UIController.Instance.UpdateSpecifiedText(_indicationsText, $"{_seedForSale.SeedData.Type} seed \n {_seedForSale.SeedData.Cost}€");
     }
 }

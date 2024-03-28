@@ -15,6 +15,7 @@ public class PlayerInventory : MonoBehaviour
     private TMP_Text _seedText;
 
     public event Action OnSeedInventoryModified;
+
     public event Action<string> OnCurrentSeedUpdated;
 
     public static PlayerInventory Instance { get; private set; }
@@ -65,7 +66,7 @@ public class PlayerInventory : MonoBehaviour
 
     public Dictionary<int, Seed> GetSeedCount(Seed seed)
     {
-        Dictionary<int, Seed> seedIndex = new();
+        Dictionary<int, Seed> seedIndex = new ();
         int nbSeed = 0;
         for (int i = 0; i < GrownSeed.Count; i++)
         {
@@ -107,7 +108,6 @@ public class PlayerInventory : MonoBehaviour
 
         CurrentSeed = Seeds[index];
         OnSeedInventoryModified?.Invoke();
-        Debug.Log($"Current seed: {CurrentSeed.SeedData.Type}");
     }
 
     private void Awake()
@@ -140,6 +140,7 @@ public class PlayerInventory : MonoBehaviour
         {
             CurrentSeed = Seeds[0];
         }
+
         OnCurrentSeedUpdated?.Invoke($"Selected Seed : {CurrentSeed.SeedData.Type}");
     }
 }

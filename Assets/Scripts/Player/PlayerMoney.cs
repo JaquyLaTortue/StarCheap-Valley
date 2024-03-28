@@ -54,8 +54,9 @@ public class PlayerMoney : MonoBehaviour
             _notEnoughMoneyCD = false;
             _moneyText.color = Color.red;
             _moneyText.DOColor(Color.black, 1);
-            _moneyText.transform.DOShakePosition(1, 10, 10);
-            StartCoroutine(NotEnoughMoneyCD());
+            float tweenDuration = 1;
+            _moneyText.transform.DOShakePosition(tweenDuration, 10, 10);
+            StartCoroutine(NotEnoughMoneyCD(tweenDuration));
         }
     }
 
@@ -63,9 +64,9 @@ public class PlayerMoney : MonoBehaviour
     /// The cooldown for the not enough money function
     /// </summary>
     /// <returns></returns>
-    private IEnumerator NotEnoughMoneyCD()
+    private IEnumerator NotEnoughMoneyCD(float tweenDuration)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(tweenDuration);
         _notEnoughMoneyCD = true;
     }
 

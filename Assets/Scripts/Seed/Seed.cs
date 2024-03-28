@@ -35,14 +35,14 @@ public class Seed : MonoBehaviour
     {
         GrowingStage = EGrowingStage.Seed;
         OnGrowingStageChange?.Invoke(GrowingStage);
+
         yield return new WaitForSeconds(_growTime / 2f);
         GrowingStage = EGrowingStage.Shoot;
         OnGrowingStageChange?.Invoke(GrowingStage);
-        Debug.Log("Shoot");
+
         yield return new WaitForSeconds(_growTime / 2f);
         GrowingStage = EGrowingStage.Plant;
         OnGrowingStageChange?.Invoke(GrowingStage);
-        Debug.Log("Plant");
     }
 
     private void Awake()
