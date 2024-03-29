@@ -17,9 +17,9 @@ public class AnimController : MonoBehaviour
     }
 
     /// <summary>
-    /// Update the running animator to the given state
+    /// Update the running animator to the given state.
     /// </summary>
-    /// <param name="state"></param>
+    /// <param name="state">The state that will be use to set the running parametre animation.</param>
     private void UpdateRunnningAnimator(bool state)
     {
         _animator.SetBool("IsRunning", state);

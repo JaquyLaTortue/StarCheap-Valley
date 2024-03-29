@@ -1,0 +1,6 @@
+Par rapport au brief j'ai ajouté:
+- Intégration (Perso / graines / Décors)
+- UI
+- Choix graine à planter
+- Petits menu pause / Principal (buildable)
+- Utilisation de DOTween pour ajouter des effets

@@ -37,7 +37,7 @@ public class PlayerMoney : MonoBehaviour
     public void SpendMoney(int amount)
     {
         Money -= amount;
-        OnMoneyChange?.Invoke(Money, false);
+        OnMoneyChange?.Invoke(Money, true);
     }
 
     /// <summary>

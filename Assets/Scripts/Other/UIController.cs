@@ -78,6 +78,7 @@ public class UIController : MonoBehaviour
         {
             _moneyCd = false;
             _moneyText.color = Color.red;
+            _moneyText.text = $"Money: {money}€";
             float tweenDuration = 1f;
             _moneyText.transform.DOShakePosition(tweenDuration, 10, 10);
             _moneyText.DOColor(_moneyTextColor, tweenDuration);
@@ -97,10 +98,10 @@ public class UIController : MonoBehaviour
     /// <param name="currentseed">The message that will be displayed.</param>
     private void UpdateSeedText(string currentseed)
     {
-        _seedText.color = Color.blue;
+        _seedText.color = Color.black;
         _seedText.text = currentseed;
         _seedText.transform.DOShakePosition(0.5f, 0.1f, 10, 90, false);
-        _seedText.DOColor(_seedTextColor, 0.5f).SetDelay(0.5f);
+        _seedText.DOColor(_seedTextColor, 0.5f);
     }
 
     /// <summary>
@@ -146,9 +147,9 @@ public class UIController : MonoBehaviour
             return;
         }
 
-        _actionText.color = Color.blue;
+        _actionText.color = Color.black;
         _actionText.text = text;
-        _actionText.DOColor(_actionTextColor, 0.5f).SetDelay(0.5f);
+        _actionText.DOColor(_actionTextColor, 0.5f);
     }
 
     private void Awake()
