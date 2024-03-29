@@ -14,6 +14,6 @@ public class ShopUI : MonoBehaviour
 
     private void Start()
     {
-        UIController.Instance.UpdateSpecifiedText(_shopText, $"{_buyingZone.SeedForSale.SeedData.Type} seed \n {_buyingZone.SeedForSale.SeedData.Cost}€");
+        _shopText.text = $"{_buyingZone.SeedForSale.SeedData.Type} seed \n {_buyingZone.SeedForSale.SeedData.Cost}€";
     }
 }

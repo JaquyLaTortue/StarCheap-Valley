@@ -4257,7 +4257,6 @@ GameObject:
   - component: {fileID: 634471072}
   - component: {fileID: 634471073}
   - component: {fileID: 634471071}
-  - component: {fileID: 634471074}
   m_Layer: 0
   m_Name: Singletons
   m_TagString: Untagged
@@ -4312,38 +4311,6 @@ MonoBehaviour:
   <CurrentSeed>k__BackingField: {fileID: 0}
   <Seeds>k__BackingField: []
   <GrownSeed>k__BackingField: []
---- !u!114 &634471074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 634471070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f908053b078ff44794b0448983b8e5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moneyText: {fileID: 1816931167}
-  _seedText: {fileID: 45168042}
-  _sellText: {fileID: 892809829}
-  _actionText: {fileID: 1861804739}
-  _selling: {fileID: 656500393}
-  _planting: {fileID: 1602781271}
-  _cropPlots:
-  - {fileID: 321096000}
-  - {fileID: 1289481912}
-  - {fileID: 883055117}
-  - {fileID: 1387146749}
-  _buyingZone:
-  - {fileID: 477106165}
-  - {fileID: 2049426972}
-  - {fileID: 627059280}
-  - {fileID: 1818680426}
-  _sellTextColor: {r: 1, g: 1, b: 1, a: 1}
-  _actionTextColor: {r: 1, g: 1, b: 1, a: 1}
-  _moneyTextColor: {r: 1, g: 1, b: 1, a: 1}
-  _seedTextColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &637732737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6555,6 +6522,109 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 0.1, z: 12}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1047954642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1047954646}
+  - component: {fileID: 1047954645}
+  - component: {fileID: 1047954644}
+  - component: {fileID: 1047954647}
+  - component: {fileID: 1047954643}
+  m_Layer: 0
+  m_Name: UIControllers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1047954643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047954642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21d0fd44387566488f8dc8e9a155d64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actionText: {fileID: 1861804739}
+  _actionTextColor: {r: 1, g: 1, b: 1, a: 1}
+  _planting: {fileID: 1602781271}
+  _cropPlots:
+  - {fileID: 1289481912}
+  - {fileID: 883055117}
+  - {fileID: 321096000}
+  - {fileID: 1387146749}
+  _buyingZone:
+  - {fileID: 477106165}
+  - {fileID: 2049426972}
+  - {fileID: 627059280}
+  - {fileID: 1818680426}
+--- !u!114 &1047954644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047954642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e525a6c9f9e1f4c9503ff3608857a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _seedText: {fileID: 45168042}
+  _seedTextColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1047954645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047954642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15705b086843d2408c7d2d935711643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moneyText: {fileID: 1816931167}
+  _moneyTextColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!4 &1047954646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047954642}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 861.93225, y: 593.45337, z: -495.49643}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1047954647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047954642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4bab1032e846844f98a22e682079d50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sellText: {fileID: 892809829}
+  _sellTextColor: {r: 1, g: 1, b: 1, a: 1}
+  _selling: {fileID: 656500393}
 --- !u!1 &1065757261
 GameObject:
   m_ObjectHideFlags: 0
@@ -14892,6 +14962,7 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 2080429820}
   - {fileID: 634471072}
+  - {fileID: 1047954646}
   - {fileID: 158443943}
   - {fileID: 1563966888}
   - {fileID: 2096963087}
