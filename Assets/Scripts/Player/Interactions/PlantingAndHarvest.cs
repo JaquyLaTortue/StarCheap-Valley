@@ -2,17 +2,17 @@
 using UnityEngine;
 
 /// <summary>
-/// The interaction of planting seeds in the crop plots
+/// The interaction of planting seeds in the crop plots.
 /// </summary>
 public class PlantingAndHarvest : InteractionBase
 {
     [SerializeField]
     private CropPlot _currentCropPlot;
 
-    public event Action<string> OnUpdateUI;
+    public event Action<string, bool> OnUpdateUI;
 
     /// <summary>
-    /// When the player is near a crop plot, the player can plant the current seed of the inventory
+    /// When the player is near a crop plot, the player can plant the current seed of the inventory.
     /// </summary>
     public override void Interact()
     {
@@ -30,7 +30,7 @@ public class PlantingAndHarvest : InteractionBase
 
         if (PlayerInventory.Instance.CurrentSeed == null)
         {
-            OnUpdateUI?.Invoke("No seed actually selected");
+            OnUpdateUI?.Invoke("No seed actually selected", true);
             return;
         }
 
@@ -40,9 +40,9 @@ public class PlantingAndHarvest : InteractionBase
     }
 
     /// <summary>
-    /// Define the current crop plot that the player is near and call the UpdateIndications method
+    /// Define the current crop plot that the player is near and call the UpdateIndications method.
     /// </summary>
-    /// <param name="current"></param>
+    /// <param name="current">The current closest Crop Plot in range.</param>
     public void DefineCurrentCropPlot(CropPlot current)
     {
         _currentCropPlot = current;
@@ -50,7 +50,7 @@ public class PlantingAndHarvest : InteractionBase
     }
 
     /// <summary>
-    /// Reset the crop plot when no Crop plot is near
+    /// Reset the previous current crop plot when it is no more near.
     /// </summary>
     public void ResetCropPlot()
     {

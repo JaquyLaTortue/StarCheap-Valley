@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections;
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// Manage the player's money
+/// Manage the player's money.
 /// </summary>
 public class PlayerMoney : MonoBehaviour
 {
     [SerializeField]
     private TMP_Text _moneyText;
 
-    private bool _notEnoughMoneyCD = true;
-
-    public event Action<int, Color> OnMoneyChange;
+    public event Action<int, bool> OnMoneyChange;
 
     public static PlayerMoney Instance { get; private set; }
 
@@ -25,49 +21,31 @@ public class PlayerMoney : MonoBehaviour
     public int Money { get; private set; } = 100;
 
     /// <summary>
-    /// Add the specified amount of money
+    /// Add the specified amount of money.
     /// </summary>
-    /// <param name="amount"></param>
+    /// <param name="amount">The amount of money that will be added.</param>
     public void EarnMoney(int amount)
     {
         Money += amount;
-        OnMoneyChange?.Invoke(Money, Color.green);
+        OnMoneyChange?.Invoke(Money, false);
     }
 
     /// <summary>
-    /// Substract the specified amount of money
+    /// Substract the specified amount of money.
     /// </summary>
-    /// <param name="amount"></param>
+    /// <param name="amount">The amount of money that will be substracted.</param>
     public void SpendMoney(int amount)
     {
         Money -= amount;
-        OnMoneyChange?.Invoke(Money, Color.red);
+        OnMoneyChange?.Invoke(Money, false);
     }
 
     /// <summary>
-    /// if the player doesn't have enough money, shake the money text and change its color to red
+    /// if the player doesn't have enough money.
     /// </summary>
     public void NotEnoughMoney()
     {
-        if (_notEnoughMoneyCD)
-        {
-            _notEnoughMoneyCD = false;
-            _moneyText.color = Color.red;
-            _moneyText.DOColor(Color.black, 1);
-            float tweenDuration = 1;
-            _moneyText.transform.DOShakePosition(tweenDuration, 10, 10);
-            StartCoroutine(NotEnoughMoneyCD(tweenDuration));
-        }
-    }
-
-    /// <summary>
-    /// The cooldown for the not enough money function
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator NotEnoughMoneyCD(float tweenDuration)
-    {
-        yield return new WaitForSeconds(tweenDuration);
-        _notEnoughMoneyCD = true;
+        OnMoneyChange?.Invoke(Money, true);
     }
 
     private void Awake()

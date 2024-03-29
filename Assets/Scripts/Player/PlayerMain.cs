@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Store all the player components
+/// Store all the player components.
 /// </summary>
 public class PlayerMain : MonoBehaviour
 {

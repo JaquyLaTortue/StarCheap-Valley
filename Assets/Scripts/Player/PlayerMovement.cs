@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Manage the player's movement
+/// Manage the player's movement.
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
@@ -33,9 +33,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Move the player in the given direction and cast the OnMove event to update the animator
+    /// Move the player in the given direction and cast the OnMove event to update the animator.
     /// </summary>
-    /// <param name="tempDirection"></param>
+    /// <param name="tempDirection">The input value that define the player's direction.</param>
     private void Movement(Vector2 tempDirection)
     {
         _direction = new Vector3(tempDirection.x, 0, tempDirection.y);

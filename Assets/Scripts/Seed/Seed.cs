@@ -4,7 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 /// <summary>
-/// Store the seed data and manage the growing process
+/// Store the seed data and manage the growing process.
 /// </summary>
 public class Seed : MonoBehaviour
 {
@@ -20,7 +20,7 @@ public class Seed : MonoBehaviour
     public SeedData SeedData { get; private set; }
 
     /// <summary>
-    /// Calls the GrowingProcess coroutine to start the growing process
+    /// Calls the GrowingProcess coroutine to start the growing process.
     /// </summary>
     public void StartGrowingProcess()
     {
@@ -28,9 +28,8 @@ public class Seed : MonoBehaviour
     }
 
     /// <summary>
-    /// Manage the growing process of the seed
+    /// Manage the growing process of the seed.
     /// </summary>
-    /// <returns></returns>
     private IEnumerator GrowingProcess()
     {
         GrowingStage = EGrowingStage.Seed;

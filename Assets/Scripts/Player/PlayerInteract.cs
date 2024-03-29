@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Handle the player interactions and cast the right action
+/// Handle the player interactions and cast the right action.
 /// </summary>
 public class PlayerInteract : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class PlayerInteract : MonoBehaviour
     }
 
     /// <summary>
-    /// Analyze the current action and interact like it
+    /// Analyze the current action and interact based on it.
     /// </summary>
     private void Interact()
     {
@@ -51,9 +51,8 @@ public class PlayerInteract : MonoBehaviour
     }
 
     /// <summary>
-    /// Analyze wich GameObject is in the trigger and set the current action to the right one
+    /// Analyze wich GameObject is in the trigger and set the current action to the right one.
     /// </summary>
-    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         switch (other.tag)
@@ -77,9 +76,8 @@ public class PlayerInteract : MonoBehaviour
     }
 
     /// <summary>
-    /// Reset the action and the current zone when the player is not in the trigger anymore
+    /// Reset the action and the current zone when the player is not in the trigger anymore.
     /// </summary>
-    /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
         switch (other.tag)

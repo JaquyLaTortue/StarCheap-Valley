@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// The zone where the player can plant seeds
+/// The zone where the player can plant seeds.
 /// </summary>
 public class CropPlot : MonoBehaviour
 {
@@ -24,63 +24,67 @@ public class CropPlot : MonoBehaviour
     [SerializeField]
     private Material _grownMaterial;
 
-    public event Action<string> OnUpdateUI;
+    public event Action<string, bool> OnUpdateUI;
 
     [field: SerializeField]
     public bool SomethingPlanted { get; private set; } = false;
 
     /// <summary>
-    /// Function called by the interaction from the player to the planting script
+    /// Function called by the interaction from the player to the planting script if he have a seed to plant.
     /// </summary>
-    /// <param name="seed"></param>
+    /// <param name="seed">The Seed that will be planted in the Crop Plot.</param>
     public void PlantSeed(GameObject seed)
     {
         if (!SomethingPlanted)
         {
-            seed.transform.parent = transform;
-            Seed current = seed.GetComponent<Seed>();
-            OnUpdateUI?.Invoke($"Planted a {current.SeedData.Type}");
-
             _seedPlanted = seed;
+
+            _seedPlanted.transform.parent = transform;
+            _seedPlanted.transform.localPosition = new Vector3(0, 0.5f, 0);
+            _seedPlanted.gameObject.SetActive(true);
+            Seed current = _seedPlanted.GetComponent<Seed>();
+            OnUpdateUI?.Invoke($"Planted a {current.SeedData.Type}", false);
+
             SomethingPlanted = true;
-            _visibleSeed.SetActive(true);
 
             current.StartGrowingProcess();
             current.OnGrowingStageChange += ChangeGrowingStage;
         }
     }
 
+    /// <summary>
+    /// Function called by the interaction from the player to the planting script if a seed is ready to be harvested.
+    /// </summary>
     public void Harvest()
     {
         if (SomethingPlanted && _seedPlanted.GetComponent<Seed>().GrowingStage == EGrowingStage.Plant)
         {
-            OnUpdateUI?.Invoke($"Harvested a {_seedPlanted.GetComponent<Seed>().SeedData.Type}");
+            OnUpdateUI?.Invoke($"Harvested a {_seedPlanted.GetComponent<Seed>().SeedData.Type}", false);
             _seedPlanted.transform.parent = PlayerInventory.Instance.transform;
+            _seedPlanted.transform.localPosition = Vector3.zero;
             PlayerInventory.Instance.AddGrownSeed(_seedPlanted.GetComponent<Seed>());
+            _seedPlanted.gameObject.SetActive(false);
             ResetCropPlot();
         }
         else
         {
-            OnUpdateUI?.Invoke("Not Ready to Harvest");
+            OnUpdateUI?.Invoke("Not Ready to Harvest", true);
         }
     }
 
     /// <summary>
-    /// Reset the crop plot to its initial state when no Crop plot is near
+    /// Reset the crop plot to its initial state when no Crop plot is near.
     /// </summary>
     public void ResetCropPlot()
     {
         SomethingPlanted = false;
         _seedPlanted = null;
-        _visibleSeed.SetActive(false);
-        _visibleSeed.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        _visibleSeed.GetComponent<MeshRenderer>().material = _seedMaterial;
     }
 
     /// <summary>
-    /// Display to the player indications so he can see where he would interact
+    /// Display to the player indications so he can see where he would interact.
     /// </summary>
-    /// <param name="state"></param>
+    /// <param name="state">The state that will define if the indicator is visible or not.</param>
     public void UpdateIndications(bool state)
     {
         _isActive = state;
@@ -88,22 +92,21 @@ public class CropPlot : MonoBehaviour
     }
 
     /// <summary>
-    /// Update the Displayed seed according to the growing stage to make the player see the progress
+    /// Update the Displayed seed according to the growing stage to make the player see the progress.
     /// </summary>
-    /// <param name="stage"></param>
+    /// <param name="stage">The actual growing stage of the planted seed.</param>
     private void ChangeGrowingStage(EGrowingStage stage)
     {
         switch (stage)
         {
             case EGrowingStage.Seed:
-                _visibleSeed.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                _seedPlanted.transform.localPosition = new Vector3(0, 0.5f, 0);
                 break;
             case EGrowingStage.Shoot:
-                _visibleSeed.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                _seedPlanted.transform.localPosition = new Vector3(0, 0.75f, 0);
                 break;
             case EGrowingStage.Plant:
-                _visibleSeed.transform.localScale = new Vector3(1f, 1f, 1f);
-                _visibleSeed.GetComponent<MeshRenderer>().material = _grownMaterial;
+                _seedPlanted.transform.localPosition = new Vector3(0, 1, 0);
                 break;
             default:
                 break;

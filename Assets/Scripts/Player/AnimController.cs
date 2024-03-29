@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Update the animator of the player
+/// Update the animator of the player.
 /// </summary>
 public class AnimController : MonoBehaviour
 {

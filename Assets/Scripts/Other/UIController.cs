@@ -4,6 +4,9 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Manage the UI.
+/// </summary>
 public class UIController : MonoBehaviour
 {
     [Header("UI Texts")]
@@ -32,55 +35,120 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private List<BuyingZone> _buyingZone;
 
+    [Header("Texts Colors")]
+    [SerializeField]
+    private Color _sellTextColor;
+
+    [SerializeField]
+    private Color _actionTextColor;
+
+    [SerializeField]
+    private Color _moneyTextColor;
+
+    [SerializeField]
+    private Color _seedTextColor;
+
+    [Header("Cooldowns")]
     private bool _sellCd = true;
+
+    private bool _buyCd = true;
+
+    private bool _moneyCd = true;
 
     public static UIController Instance { get; private set; }
 
-    public void UpdateMoneyText(int money, Color color)
+    /// <summary>
+    /// Update the specified text.
+    /// </summary>
+    /// <param name="txt">The TMP_Text that will be updated.</param>
+    /// <param name="text">The message that will be displayed in the specified TMP_Text.</param>
+    public void UpdateSpecifiedText(TMP_Text txt, string text)
     {
-        _moneyText.color = color;
-        _moneyText.text = $"Money: {money}€";
-        _moneyText.transform.DOShakePosition(0.5f, 0.1f, 10, 90, false);
-        _moneyText.DOColor(Color.black, 0.5f).SetDelay(0.5f);
+        txt.text = text;
     }
 
-    public void UpdateSeedText(string currentseed)
+    /// <summary>
+    /// Update the money text.
+    /// </summary>
+    /// <param name="money">The amount of money that the player have.</param>
+    /// <param name="shouldShake">If the text should shake.</param>
+    private void UpdateMoneyText(int money, bool shouldShake)
+    {
+        if (_moneyCd && shouldShake)
+        {
+            _moneyCd = false;
+            _moneyText.color = Color.red;
+            float tweenDuration = 1f;
+            _moneyText.transform.DOShakePosition(tweenDuration, 10, 10);
+            _moneyText.DOColor(_moneyTextColor, tweenDuration);
+            StartCoroutine(MoneyCD(tweenDuration));
+            return;
+        }
+
+        _moneyText.color = Color.green;
+        _moneyText.text = $"Money: {money}€";
+        _moneyText.transform.DOShakePosition(0.5f, 0.1f, 10, 90, false);
+        _moneyText.DOColor(_moneyTextColor, 0.5f).SetDelay(0.5f);
+    }
+
+    /// <summary>
+    /// Update the seed text.
+    /// </summary>
+    /// <param name="currentseed">The message that will be displayed.</param>
+    private void UpdateSeedText(string currentseed)
     {
         _seedText.color = Color.blue;
         _seedText.text = currentseed;
         _seedText.transform.DOShakePosition(0.5f, 0.1f, 10, 90, false);
-        _seedText.DOColor(Color.black, 0.5f).SetDelay(0.5f);
+        _seedText.DOColor(_seedTextColor, 0.5f).SetDelay(0.5f);
     }
 
-    public void UpdateSellText(bool state, string text, Color color)
+    /// <summary>
+    /// Update the sell text.
+    /// </summary>
+    /// <param name="shouldShake">If the text should shake.</param>
+    /// <param name="text">The message that will be displayed.</param>
+    /// <param name="color">The color in wich the message should be diplayed.</param>
+    private void UpdateSellText(bool shouldShake, string text, Color color)
     {
         _sellText.color = color;
-        if (!state && _sellCd)
+        if (!shouldShake && _sellCd)
         {
             _sellCd = false;
             float tweenDuration = 1f;
             _sellText.text = text;
             _sellText.transform.DOShakePosition(tweenDuration, 10, 10);
-            _sellText.DOColor(Color.black, tweenDuration);
+            _sellText.DOColor(_sellTextColor, tweenDuration);
             StartCoroutine(SellCD(tweenDuration));
             return;
         }
 
         _sellText.text = text;
-        _sellText.DOColor(Color.black, 0.5f).SetDelay(0.5f);
+        _sellText.DOColor(_sellTextColor, 0.5f).SetDelay(0.5f);
     }
 
-    public void UpdateActionText(string text)
+    /// <summary>
+    /// Update the action text.
+    /// </summary>
+    /// <param name="text">The message that will be displayed.</param>
+    /// <param name="shouldShake">If the text should shake.</param>
+    private void UpdateActionText(string text, bool shouldShake)
     {
+        if (_buyCd && shouldShake)
+        {
+            _buyCd = false;
+            float tweenDuration = 1f;
+            _actionText.color = Color.red;
+            _actionText.text = text;
+            _actionText.transform.DOShakePosition(tweenDuration, 10, 10);
+            _actionText.DOColor(_actionTextColor, tweenDuration);
+            StartCoroutine(BuyCD(tweenDuration));
+            return;
+        }
+
         _actionText.color = Color.blue;
         _actionText.text = text;
-        _actionText.transform.DOShakePosition(0.5f, 0.1f, 10, 90, false);
-        _actionText.DOColor(Color.black, 0.5f).SetDelay(0.5f);
-    }
-
-    public void UpdateSpecifiedText(TMP_Text txt, string text)
-    {
-        txt.text = text;
+        _actionText.DOColor(_actionTextColor, 0.5f).SetDelay(0.5f);
     }
 
     private void Awake()
@@ -98,7 +166,7 @@ public class UIController : MonoBehaviour
     private void Start()
     {
         PlayerMoney.Instance.OnMoneyChange += UpdateMoneyText;
-        UpdateMoneyText(PlayerMoney.Instance.Money, Color.black);
+        UpdateMoneyText(PlayerMoney.Instance.Money, false);
 
         PlayerInventory.Instance.OnCurrentSeedUpdated += UpdateSeedText;
         UpdateSeedText("No seed in inventory");
@@ -124,5 +192,17 @@ public class UIController : MonoBehaviour
     {
         yield return new WaitForSeconds(tweenDuration);
         _sellCd = true;
+    }
+
+    private IEnumerator BuyCD(float tweenDuration)
+    {
+        yield return new WaitForSeconds(tweenDuration);
+        _buyCd = true;
+    }
+
+    private IEnumerator MoneyCD(float tweenDuration)
+    {
+        yield return new WaitForSeconds(tweenDuration);
+        _moneyCd = true;
     }
 }

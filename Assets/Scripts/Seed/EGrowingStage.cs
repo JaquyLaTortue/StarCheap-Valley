@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// The different stages of a crop
+/// The different stages of a crop.
 /// </summary>
 public enum EGrowingStage
 {
