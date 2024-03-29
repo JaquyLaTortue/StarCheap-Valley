@@ -2,6 +2,9 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Control the seed text.
+/// </summary>
 public class SeedTextControl : MonoBehaviour
 {
     [SerializeField]
@@ -17,7 +20,7 @@ public class SeedTextControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Update the seed text.
+    /// Update the seed text with the specified message.
     /// </summary>
     /// <param name="currentseed">The message that will be displayed.</param>
     private void UpdateSeedText(string currentseed)

@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Rebind the keys of the player.
+/// </summary>
 public class Rebind : MonoBehaviour
 {
     // The UI that will be displayed when the player will rebind his keys
@@ -13,7 +16,7 @@ public class Rebind : MonoBehaviour
     public event Action OnRebind;
 
     /// <summary>
-    /// Rebind the keyboard.
+    /// rebind the input action reference specified to a new one.
     /// </summary>
     /// <param name="inputActionref">The input action reference to rebind.</param>
     public void RebindKeyboard(InputActionReference inputActionref)
@@ -28,7 +31,7 @@ public class Rebind : MonoBehaviour
     }
 
     /// <summary>
-    /// Called when the rebinding is complete
+    /// Called when the rebinding is complete.
     /// </summary>
     private void RebindComplete(InputAction action)
     {

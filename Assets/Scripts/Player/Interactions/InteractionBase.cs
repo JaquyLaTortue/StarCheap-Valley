@@ -2,6 +2,7 @@
 
 /// <summary>
 /// Abstract class for the interactions.
+/// Not an interface because I need the MonoBehaviour inheritance.
 /// </summary>
 public abstract class InteractionBase : MonoBehaviour
 {

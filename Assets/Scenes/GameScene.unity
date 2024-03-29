@@ -6531,8 +6531,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1047954646}
-  - component: {fileID: 1047954645}
   - component: {fileID: 1047954644}
+  - component: {fileID: 1047954645}
   - component: {fileID: 1047954647}
   - component: {fileID: 1047954643}
   m_Layer: 0
@@ -6556,6 +6556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _actionText: {fileID: 1861804739}
   _actionTextColor: {r: 1, g: 1, b: 1, a: 1}
+  _shakeDuration: 1
   _planting: {fileID: 1602781271}
   _cropPlots:
   - {fileID: 1289481912}
@@ -6595,6 +6596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moneyText: {fileID: 1816931167}
   _moneyTextColor: {r: 1, g: 1, b: 1, a: 1}
+  _shakeDuration: 1
 --- !u!4 &1047954646
 Transform:
   m_ObjectHideFlags: 0
@@ -6624,6 +6626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sellText: {fileID: 892809829}
   _sellTextColor: {r: 1, g: 1, b: 1, a: 1}
+  _shakeDuration: 1
   _selling: {fileID: 656500393}
 --- !u!1 &1065757261
 GameObject:

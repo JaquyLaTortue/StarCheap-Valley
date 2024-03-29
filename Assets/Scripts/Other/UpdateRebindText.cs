@@ -19,6 +19,9 @@ public class UpdateRebindText : MonoBehaviour
         UpdateText();
     }
 
+    /// <summary>
+    /// Update the text with the new input each time the action is rebind.
+    /// </summary>
     private void UpdateText()
     {
         _text.text = $"Interact : \n {InputControlPath.ToHumanReadableString(_playerInput.actions["Interact"].bindings[0].effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice)}";

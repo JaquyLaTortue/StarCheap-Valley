@@ -15,6 +15,9 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene(sceneIndex);
     }
 
+    /// <summary>
+    /// Quit the application.
+    /// </summary>
     public void Quit()
     {
         Application.Quit();

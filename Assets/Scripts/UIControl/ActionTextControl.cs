@@ -4,6 +4,9 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Control the action text.
+/// </summary>
 public class ActionTextControl : MonoBehaviour
 {
     [SerializeField]
@@ -12,12 +15,14 @@ public class ActionTextControl : MonoBehaviour
     [SerializeField]
     private Color _actionTextColor;
 
+    [SerializeField]
+    private float _shakeDuration = 1f;
+
     [Header("References")]
     [SerializeField]
     private PlantingAndHarvest _planting;
 
     [SerializeField]
-
     private List<CropPlot> _cropPlots;
 
     [SerializeField]
@@ -50,12 +55,11 @@ public class ActionTextControl : MonoBehaviour
         if (_buyCd && shouldShake)
         {
             _buyCd = false;
-            float tweenDuration = 1f;
             _actionText.color = Color.red;
             _actionText.text = text;
-            _actionText.transform.DOShakePosition(tweenDuration, 10, 10);
-            _actionText.DOColor(_actionTextColor, tweenDuration);
-            StartCoroutine(BuyCD(tweenDuration));
+            _actionText.transform.DOShakePosition(_shakeDuration, 10, 10);
+            _actionText.DOColor(_actionTextColor, _shakeDuration);
+            StartCoroutine(BuyCD(_shakeDuration));
             return;
         }
 
@@ -64,6 +68,10 @@ public class ActionTextControl : MonoBehaviour
         _actionText.DOColor(_actionTextColor, 0.5f);
     }
 
+    /// <summary>
+    /// The cooldown of the action text to shake again.
+    /// </summary>
+    /// <param name="tweenDuration">The duration of the Cooldown.</param>
     private IEnumerator BuyCD(float tweenDuration)
     {
         yield return new WaitForSeconds(tweenDuration);

@@ -3,6 +3,9 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Control the sell text.
+/// </summary>
 public class SellTextControl : MonoBehaviour
 {
     [SerializeField]
@@ -10,6 +13,9 @@ public class SellTextControl : MonoBehaviour
 
     [SerializeField]
     private Color _sellTextColor;
+
+    [SerializeField]
+    private float _shakeDuration = 1f;
 
     [Header("Reference")]
     [SerializeField]
@@ -34,11 +40,10 @@ public class SellTextControl : MonoBehaviour
         if (!shouldShake && _sellCd)
         {
             _sellCd = false;
-            float tweenDuration = 1f;
             _sellText.text = text;
-            _sellText.transform.DOShakePosition(tweenDuration, 10, 10);
-            _sellText.DOColor(_sellTextColor, tweenDuration);
-            StartCoroutine(SellCD(tweenDuration));
+            _sellText.transform.DOShakePosition(_shakeDuration, 10, 10);
+            _sellText.DOColor(_sellTextColor, _shakeDuration);
+            StartCoroutine(SellCD(_shakeDuration));
             return;
         }
 
@@ -46,6 +51,10 @@ public class SellTextControl : MonoBehaviour
         _sellText.DOColor(_sellTextColor, 0.5f).SetDelay(0.5f);
     }
 
+    /// <summary>
+    /// The cooldown of the sell text to shake again.
+    /// </summary>
+    /// <param name="tweenDuration">The duration of the cooldown</param>
     private IEnumerator SellCD(float tweenDuration)
     {
         yield return new WaitForSeconds(tweenDuration);

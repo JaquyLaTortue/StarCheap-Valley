@@ -3,6 +3,9 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Control the money text.
+/// </summary>
 public class MoneyTextControl : MonoBehaviour
 {
     [SerializeField]
@@ -10,6 +13,9 @@ public class MoneyTextControl : MonoBehaviour
 
     [SerializeField]
     private Color _moneyTextColor;
+
+    [SerializeField]
+    private float _shakeDuration = 1f;
 
     private bool _moneyCd = true;
 
@@ -31,10 +37,9 @@ public class MoneyTextControl : MonoBehaviour
             _moneyCd = false;
             _moneyText.color = Color.red;
             _moneyText.text = $"Money: {money}€";
-            float tweenDuration = 1f;
-            _moneyText.transform.DOShakePosition(tweenDuration, 10, 10);
-            _moneyText.DOColor(_moneyTextColor, tweenDuration);
-            StartCoroutine(MoneyCD(tweenDuration));
+            _moneyText.transform.DOShakePosition(_shakeDuration, 10, 10);
+            _moneyText.DOColor(_moneyTextColor, _shakeDuration);
+            StartCoroutine(MoneyCD(_shakeDuration));
             return;
         }
 
@@ -44,6 +49,10 @@ public class MoneyTextControl : MonoBehaviour
         _moneyText.DOColor(_moneyTextColor, 0.5f).SetDelay(0.5f);
     }
 
+    /// <summary>
+    /// The cooldown of the money text to shake again.
+    /// </summary>
+    /// <param name="tweenDuration">The duration of the cooldown.</param>
     private IEnumerator MoneyCD(float tweenDuration)
     {
         yield return new WaitForSeconds(tweenDuration);
